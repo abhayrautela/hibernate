@@ -1,8 +1,6 @@
 package com.learn.hibernate.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -10,11 +8,42 @@ import java.util.Date;
 public class UserDetails {
 
     @Id
+    @GeneratedValue
     private int userId;
     private String userName;
+    @Temporal(TemporalType.DATE)
     private Date joinedDate;
-    private String address;
-    private String description;
+    private static String addressString; // static variables are not persisted
+    @Transient
+    private String description; // variables marked as transient are not persisted
+    @Lob
+    private String largeString;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "street", column = @Column(name = "HOME_ADDRESS_NAME")),
+            @AttributeOverride(name = "city", column = @Column(name = "HOME_CITY_NAME")),
+            @AttributeOverride(name = "state", column = @Column(name = "HOME_STATE_NAME")),
+            @AttributeOverride(name = "pincode", column = @Column(name = "HOME_PIN_CODE"))
+    })
+    private Address homeAddress;
+    @Embedded
+    private Address officeAddress;
+
+    public Address getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
+    }
+
+    public Address getOfficeAddress() {
+        return officeAddress;
+    }
+
+    public void setOfficeAddress(Address officeAddress) {
+        this.officeAddress = officeAddress;
+    }
 
     public int getUserId() {
         return userId;
@@ -40,12 +69,12 @@ public class UserDetails {
         this.joinedDate = joinedDate;
     }
 
-    public String getAddress() {
-        return address;
+    public String getAddressString() {
+        return addressString;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddressString(String addressString) {
+        this.addressString = addressString;
     }
 
     public String getDescription() {
@@ -54,5 +83,26 @@ public class UserDetails {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getLargeString() {
+        return largeString;
+    }
+
+    public void setLargeString(String largeString) {
+        this.largeString = largeString;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDetails{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", joinedDate=" + joinedDate +
+                ", description='" + description + '\'' +
+                ", largeString='" + largeString + '\'' +
+                ", homeAddress=" + homeAddress +
+                ", officeAddress=" + officeAddress +
+                '}';
     }
 }
