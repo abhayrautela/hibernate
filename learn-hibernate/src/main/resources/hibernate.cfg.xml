@@ -38,6 +38,7 @@
         <mapping class="com.learn.hibernate.dto.UserDetailsFieldAccess"/>
         <mapping class="com.learn.hibernate.dto.UserDetailsGetterAccess"/>
         <mapping class="com.learn.hibernate.dto.UserDetails"/>
+        <mapping class="com.learn.hibernate.dto.UserDetails1"/>
 
     </session-factory>
 

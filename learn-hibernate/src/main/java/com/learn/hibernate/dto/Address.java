@@ -2,10 +2,10 @@ package com.learn.hibernate.dto;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
 
 @Embeddable
 public class Address {
+
     @Column(name = "OFFICE_STREET_NAME")
     private String street;
     @Column(name = "OFFICE_CITY_NAME")
@@ -43,10 +43,6 @@ public class Address {
         return pincode;
     }
 
-    public void setPincode(String pincode) {
-        this.pincode = pincode;
-    }
-
     @Override
     public String toString() {
         return "Address{" +
@@ -56,4 +52,9 @@ public class Address {
                 ", pincode='" + pincode + '\'' +
                 '}';
     }
+
+    public void setPincode(String pincode) {
+        this.pincode = pincode;
+    }
+
 }
